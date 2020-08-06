@@ -608,6 +608,8 @@ class PreProcessEcomm:
             x = re.findall('[\$\£\€](\d+(?:\.\d{1,2})?)', s)
             return float(x[0])
         except:
+            if (s == 'Out Of Stock'):
+                return 0
             s = s[1:]
             return float(s[:4])
 
