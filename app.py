@@ -27,7 +27,7 @@ def predict():
 @app.route('/results',methods=['POST'])
 def results():
 
-    predictor(1, 'jeans')
+    predictor('NORDSTROM', 'jeans')
     return
 
 if __name__ == "__main__":
