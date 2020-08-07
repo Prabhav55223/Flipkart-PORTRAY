@@ -25,19 +25,19 @@
 </head>
 
 <body>
-    <header id="header" class="fixed-top ">
+    <header id="header" class="fixed-top header-inner-pages">
         <div class="container d-flex align-items-center">
             <h1 class="logo mr-auto"><a href="/">PORTRAY</a></h1>
             <!-- Uncomment below if you prefer to use an image logo -->
             <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/favicon.png" alt="" class="img-fluid"></a> -->
             <nav class="nav-menu d-none d-lg-block">
                 <ul>
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#about">Documentation</a></li>
-                    <li><a href="#ecomm">E-Commerce Analysis</a></li> <!-- PORTFOLIO -->
-                    <li><a href="#trend">Trend Analysis</a></li> <!-- SERVICES -->
-                    <li><a href="#team">Team</a></li>
-                    <li><a href="#additions">Additions</a></li>
+                    <li class="active"><a href="/">Home</a></li>
+                    <li><a href="/#about">Documentation</a></li>
+                    <li><a href="/#ecomm">E-Commerce Analysis</a></li> <!-- PORTFOLIO -->
+                    <li><a href="/#trend">Trend Analysis</a></li> <!-- SERVICES -->
+                    <li><a href="/#team">Team</a></li>
+                    <li><a href="/#additions">Additions</a></li>
                 </ul>
             </nav><!-- .nav-menu -->
         </div>
@@ -47,21 +47,91 @@
         <section id="breadcrumbs" class="breadcrumbs">
             <div class="container">
                 <ol>
-                    <li><a href="index.html">Home</a></li>
-                    <li>Inner Page</li>
+                    <li><a href="/">Home</a></li>
+                    <li>Your Results</li>
                 </ol>
-                <h2>Inner Page</h2>
+                <h2>Trend Analysis for {{ details }}</h2>
             </div>
         </section><!-- End Breadcrumbs -->
-        <section class="inner-page">
-            <div class="container">
-                <p>
-                    Example inner page template
-                </p>
+        <!--  <section id="portfolio-details" , class="portfolio-details">
+            <div class="section-title">
+                    <h2>Figuring Out The Variables in our Results</h2>
             </div>
-        </section>
+             <div class="col-lg-12 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="{{ url_for('static', filename='img/understand.png') }}" class="img-fluid animated" alt="">
+            </div>
+        </section> -->
+        <!-- ======= Portfolio Details Section ======= -->
+        <section id="portfolio-details" , class="portfolio-details" style="background-color: #F3F5FA">
+            <div class="section-title">
+                <h2>Top Products Based on Articles from Website</h2>
+            </div>
+            <div class="card-deck" style="margin-right: 10px; margin-left: 10px;">
+                {% for key, row in prods.iterrows() %}
+                <div class="card">
+                    <img class="card-img-top" src="{{ row['Image_Link'] }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h3 class="card-title" style="font-size: medium;">{{ row["Name"] }}</h3>
+                        <h5 class="card-title" style="font-size: small; color: #3C4C6A">{{ row["Brand"] }}</h5>
+                        <p class="card-text" style="font-size: 12px">
+                            <strong>ASCORE: {{ row["AScore"] }}</strong> <br>
+                            Price: {{ row["Price"] }} <br>
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href=""><small class="text-muted">{{ details }}</small></a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section><!-- End Portfolio Details Section -->
+        <!-- ======= Portfolio Details Section ======= -->
+        <section id="portfolio-details" , class="portfolio-details">
+            <div class="section-title">
+                <h2>Top General Articles (Not Product Specific)</h2>
+            </div>
+            <div class="card-deck" style="margin-right: 10px; margin-left: 10px;">
+                {% for key, row in arts.iterrows() %}
+                <div class="modal" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">{{ row["Title"] }}</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                {{ row["Text"] }}
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="{{ row['Links'][0] }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h3 class="card-title" style="font-size: medium;">{{ row["Title"] }}</h3>
+                        <h5 class="card-title" style="font-size: small; color: #3C4C6A">{{ row["Date"] }}</h5>
+                        <p class="card-text" style="font-size: 12px">
+                            <strong>Score: {{ row["Scores"] }}</strong> <br>
+                            <!-- Price:  {{ row["Price"] }} <br> -->
+                        </p>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                            Read More
+                        </button>
+                    </div>
+                    <div class="card-footer">
+                        <a href=""><small class="text-muted">{{ details }}</small></a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section><!-- End Portfolio Details Section -->
     </main><!-- End #main -->
-    <!-- ======= Footer ======= -->
     <!-- ======= Footer ======= -->
     <footer id="footer">
         <div class="footer-top">
@@ -139,3 +209,23 @@
 </body>
 
 </html>
+<!-- <div class="card">
+                    <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap" height="180px" width="100px">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap" height="180px" width="100px">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>
+                </div> -->
