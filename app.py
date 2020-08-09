@@ -33,6 +33,10 @@ def home():
     '''
     return render_template('index.html')
 
+@app.route('/documentation', methods=["GET"])
+def documentation():
+    return render_template('docs.html')
+
 @app.route('/predict',methods=['POST'])
 def predict():
 

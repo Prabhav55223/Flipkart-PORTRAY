@@ -51,7 +51,6 @@
                     <h5 style="color: white">FLIPKART GRID 2.0 | Team Illuminati | NSUT, Delhi</h5>
                     <div class="d-lg-flex">
                         <a href="#ecomm" class="btn-get-started scrollto">Get Started</a>
-                        <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox btn-watch-video" data-vbtype="video" data-autoplay="true"> Watch Video <i class="icofont-play-alt-2"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
@@ -106,7 +105,7 @@
                             Need the technical knowledge? Below link will help you gain insight into our functioning.
                         </p>
                         <div style="text-align:center">
-                            <a href="https://docs.google.com/presentation/d/1v4RVJ2rXtZ3mljqBMSJ0oSpvYcRVrUBM/edit#slide=id.p1" class="btn-learn-more">Open Documentation</a>
+                            <a href="{{ url_for('documentation') }}" class="btn-learn-more">Open Documentation</a>
                         </div>
                     </div>
                 </div>
@@ -305,10 +304,10 @@
                 <div class="row">
                     <div class="col-lg-9 text-center text-lg-left">
                         <h3>Watch our Demo Video</h3>
-                        <p> Having trouble using the app? Watch this video for a demo!</p>
+                        <p> Having trouble using the app on Heroku? Read our Docs to locally host the server!</p>
                     </div>
                     <div class="col-lg-3 cta-btn-container text-center">
-                        <a class="cta-btn align-middle" href="#">Watch Video</a>
+                        <a class="cta-btn align-middle" href="{{ url_for('documentation') }}">DOCS</a>
                     </div>
                 </div>
             </div>
