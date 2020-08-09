@@ -1,3 +1,4 @@
+''' Importing Libraries '''
 import nltk
 import os
 from datetime import datetime
@@ -28,16 +29,19 @@ import pandas as pd
 import itertools
 from tqdm import tqdm
 
+''' Create a dictionnary for classifying products into categories '''
 apparel= {
     'tshirt' : ['tee', 'tshirt', 'T-shirt',' t shirt', 'teeshirt'],
     'footwear' : ['shoes', 'sandal', 'sandals', 'shoes', 'footwear', 'slipper','Croc', 'Sandals'],
     'jewellery' : ['jewellery'],
+    # 'jeans': ['jeans, denim, ripped, levis'],
     'dress' : ['dress', 'dresses', 'sundress', 'sundresses'],
     'skirt': ['skirt', 'skirts', 'maxi'],
     'bag': ['bag', 'bags', 'purse', 'purses', 'wallet', 'wallets']
 }
 
-def normal(tagged):
+
+def normal(tagged):                                                           
     return [(item[0].replace('.', ' '), item[1]) for item in tagged]
 
 def filter_for_tags(tagged, tags=['NNP']):
@@ -120,6 +124,10 @@ def extract_key_phrases(text):
     return list(modified_key_phrases)
 
 def todf(vogue):
+    ''' Function to convert the extracted pickle file to a suitable dataframe
+    vogue: dictionary of the pickle file
+    df1: temporary dataframe
+    df: final dataframe of articles in suitable format'''
     df1=pd.DataFrame.from_dict(vogue)
     row=[]
     for entry in df1.columns:
@@ -144,10 +152,16 @@ def todf(vogue):
     return df
 
 def convert_date(text):
+    ''' Function to convert the date of articles to a timestamp
+    text: date of the article to be converted '''
+
     datetime_object = datetime.strptime(text, '%d %B %Y')
     return datetime_object
 
 def dscore(df):
+    ''' Function to calculate a score based on dates of the articles
+    and sort the dataframe based on it '''
+
     df['Date'] = df.Date.apply(convert_date)
     df = df.sort_values(by='Date').reset_index(drop=True)      
     lis = []
@@ -157,17 +171,28 @@ def dscore(df):
     return df
 
 def endorse(text, title, tags):
+    ''' Function to calculate a score based on number of 
+     proper nouns(used as a param for endorsements)
+     text: variable for text of the articles
+     title: variable for title of the articles
+     tags: variable for subheading of the articles '''
+
     temp= text+title+tags
     res= extract_key_phrases(temp)
     return len(res)
+
 def escore(df):
+    ''' Function to apply endorsement score '''
 #     df['EScore']= ""
     df['EScore'] = df.apply(lambda row : endorse(row['Text'], row['Title'], row['Tags']), axis = 1)
     return df
 
+
 scaler = MinMaxScaler(feature_range = (0,10))
 
 def normalize(df):
+    ''' Function to normalize the scores obtained to a 
+    range between 0 and 10 '''
     column_names_to_normalize = ['DScore', 'EScore']
     x = df[column_names_to_normalize].values
     x_scaled = scaler.fit_transform(x)
@@ -180,6 +205,7 @@ def filter_for_tags(tagged, tags=['NN', 'JJ']):
     return [item for item in tagged if item[1] in tags]
 
 def clean(rev): 
+    ''' Function to perform basic cleaning of strings'''
     lis = []
     for i in rev:
         i = re.sub(r'[^\w\s\']','',i)
@@ -188,6 +214,12 @@ def clean(rev):
     return lis
 
 def category(df):
+    ''' Function to allot category to an article
+    tshirt: number of times the article mentions words related to tshirt
+    footwear: number of times the article mentions words related to footwear
+    jewellery: number of times the article mentions words related to jewellery
+    skirt: number of times the article mentions words related to skirt
+    bag: number of times the article mentions words related to bag'''
     for i in range(len(df)):
         tshirt=0
         footwear=0
@@ -253,10 +285,26 @@ def category(df):
             df['dress'][i]= dress
             df['skirt'][i]= skirt
             df['bag'][i]= bag
+
+    for index, row in df.iterrows():
+        val = max([row["tshirt"], row["footwear"], row["bag"], row["skirt"], row["dress"], row["jewellery"]])
+        if (row['tshirt']==val):
+            df["Category"][index] = "tshirt"
+        elif (row["footwear"]==val):
+            df["Category"][index] = "footwear"
+        elif (row["bag"]==val):
+            df["Category"][index] = "bag"
+        elif (row["skirt"]==val):
+            df["Category"][index] = "skirt"
+        elif (row["dress"]==val):
+            df["Category"][index] = "dress"
+        else:
+            df["Category"][index] = "jewellery"
             
     return df
 
 def clean_text(text):
+    ''' Function to lowercase a string and tokenize it '''
     try:
         text= text.lower()
         res= text.split(" ")
@@ -265,6 +313,7 @@ def clean_text(text):
     return res
 
 def clean_list(str):
+    ''' Function to split words in string based on space and hyphens'''
     res=[]
     for li in str:
         li = li.replace('-', ' ').split(' ')
@@ -273,6 +322,13 @@ def clean_list(str):
     return res
 
 def similarity(nord, res_dict):
+    ''' Function to calculate similarity of product name and description 
+    with the exracted keywords from an article
+    nord: variable for the dataframe of products from a website
+    res_dict : dictionary containing data of articles with the required category
+    tscore: score based on number of matches with the article keywords
+    dscore: Date score of the article
+    escore: Endorsements score of the articles'''
     for i in range(len(nord)):
         tscore=0
         dscore=0
@@ -288,6 +344,7 @@ def similarity(nord, res_dict):
         nord['AScore'][i]= (tscore + dscore+ escore)/3
         
 def normalize2(nord):
+    ''' Function to mormlaize scores '''
     column_names_to_normalize = ['AScore']
     x = nord[column_names_to_normalize].values
     x_scaled = scaler.fit_transform(x)
@@ -296,6 +353,7 @@ def normalize2(nord):
     return nord
 
 def sortbyarticles(df):
+    '''Function to return the top articles '''
     res1 = df
     lister = []
     for i in range(len(res1)):
@@ -306,7 +364,16 @@ def sortbyarticles(df):
     del res1["Tags"], res1["DScore"], res1["EScore"], df["Scores"]
     return res1 
 
+def backtonormal(liste):
+    '''Function to join thr product names' list to string'''
+    return ' '.join(liste)
+
 def articles(website, product):
+    ''' Driver function to rate products based on latest trends
+    website: user inputted fashion website
+    product: user inputted particular product
+
+    For demonstartion purposes, products from the webiste http://nordstrom.com are ranked '''
 
     nord= pd.read_csv('static/CSV/NORDSTROM_' + product + '.csv')
     file = 'static/PKL/' + website + '_articles.pkl'
@@ -324,10 +391,10 @@ def articles(website, product):
     df['dress']  = ""
     df['skirt']  = ""
     df['bag']  = ""
+    df["Category"] = ""
     df = category(df)
     df['Text'] = df.Text.apply(extract_key_phrases)
     df['Text']= df.Text.apply(clean_list)
-    df['Category']= ['footwear', 'footwear', 'footwear', 'tshirt','jewellery', 'dress','none','dress','dress','dress','bag' ]
     nord['Name']= nord.Name.apply(clean_text)
     nord['Name']= nord.Name.apply(clean_list)
     nord['Description']= nord.Description.apply(clean_text)
@@ -342,8 +409,8 @@ def articles(website, product):
         for word in relevant['Text'][i]:
             small.append(word)
         res_dict['text'].append(small)
-    res_dict['dscore'].append(relevant['DScore'][i])
-    res_dict['escore'].append(relevant['EScore'][i])
+        res_dict['dscore'].append(relevant['DScore'][i])
+        res_dict['escore'].append(relevant['EScore'][i])
 
     nord['AScore']= ""
     similarity(nord, res_dict)
@@ -351,6 +418,7 @@ def articles(website, product):
     result = result.sort_values(by = "AScore", ascending = False)
     result = result[:5]
     result = result.reset_index(drop = True)
+    result["Name"] = result.Name.apply(backtonormal)
     del result["Rating"], result["Number of Ratings"], result["Reviews"], result["Current Views"], result["Description"], result["Discount"]
     result.to_pickle('static/Sample_Results/top5prods.pkl')
     return
