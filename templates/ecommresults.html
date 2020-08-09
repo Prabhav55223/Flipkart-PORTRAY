@@ -53,23 +53,20 @@
                 <h2>E-Commerce Analysis for {{ details }}</h2>
             </div>
         </section><!-- End Breadcrumbs -->
-
         <section id="portfolio-details" , class="portfolio-details">
             <div class="section-title">
-                    <h2>Figuring Out The Variables in our Results</h2>
+                <h2>Figuring Out The Variables in our Results</h2>
             </div>
-             <div class="col-lg-12 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
-                    <img src="{{ url_for('static', filename='img/understand.png') }}" class="img-fluid animated" alt="">
+            <div class="col-lg-12 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+                <img src="{{ url_for('static', filename='img/understand.png') }}" class="img-fluid animated" alt="">
             </div>
         </section>
-
         <!-- ======= Portfolio Details Section ======= -->
         <section id="portfolio-details" , class="portfolio-details" style="background-color: #F3F5FA">
             <div class="section-title">
-                    <h2>Top Products</h2>
+                <h2>Top Products</h2>
             </div>
             <div class="card-deck" style="margin-right: 10px; margin-left: 10px;">
-
                 {% for key, row in top.iterrows() %}
                 <div class="card">
                     <img class="card-img-top" src="{{ row['Image_Link'] }}" alt="Card image cap">
@@ -78,8 +75,8 @@
                         <h5 class="card-title" style="font-size: small; color: #3C4C6A">{{ row["Brand"] }}</h5>
                         <p class="card-text" style="font-size: 12px">
                             <strong>RSCORE: {{ row["RSCORE"] }}</strong> <br>
-                            Price:  {{ row["Price"] }} <br>
-                            Features: {{ row["Keywords"] }}
+                            Price: {{ row["Price"] }} <br>
+                            Features: {{ top["Keywords"][key] }}
                         </p>
                     </div>
                     <div class="card-footer">
@@ -87,17 +84,14 @@
                     </div>
                 </div>
                 {% endfor %}
-                
             </div>
         </section><!-- End Portfolio Details Section -->
-
-         <!-- ======= Portfolio Details Section ======= -->
+        <!-- ======= Portfolio Details Section ======= -->
         <section id="portfolio-details" , class="portfolio-details">
             <div class="section-title">
-                    <h2>Bottom Products</h2>
+                <h2>Bottom Products</h2>
             </div>
             <div class="card-deck" style="margin-right: 10px; margin-left: 10px;">
-
                 {% for key, row in bottom.iterrows() %}
                 <div class="card">
                     <img class="card-img-top" src="{{ row['Image_Link'] }}" alt="Card image cap">
@@ -106,7 +100,7 @@
                         <h5 class="card-title" style="font-size: small; color: #3C4C6A">{{ row["Brand"] }}</h5>
                         <p class="card-text" style="font-size: 12px">
                             <strong>RSCORE: {{ row["RSCORE"] }}</strong> <br>
-                            Price:  {{ row["Price"] }} <br>
+                            Price: {{ row["Price"] }} <br>
                             Features: {{ row["Keywords"] }}
                         </p>
                     </div>
@@ -115,16 +109,9 @@
                     </div>
                 </div>
                 {% endfor %}
-                
             </div>
         </section><!-- End Portfolio Details Section -->
-
-
     </main><!-- End #main -->
-
-
-
-
     <!-- ======= Footer ======= -->
     <footer id="footer">
         <div class="footer-top">
@@ -202,9 +189,6 @@
 </body>
 
 </html>
-
-
-
 <!-- <div class="card">
                     <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap" height="180px" width="100px">
                     <div class="card-body">

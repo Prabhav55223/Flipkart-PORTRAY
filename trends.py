@@ -1,3 +1,16 @@
+# -----------------------------------------------------------------PORTRAY----------------------------------------------------------------------#
+
+
+#                                                                       AUTHORS
+
+#                                                       PRABHAV SINGH -> prabhavsingh55221@gmail.com
+#                                                       RIDAM SRIVASTAVA -> ridam2k@gmail.com
+
+#                                                                    TEAM ILLUMINATI
+
+#____________________________________________________________________TREND ANALYSIS________________________________________________________________
+
+
 ''' Importing Libraries '''
 import nltk
 import os
@@ -34,7 +47,7 @@ apparel= {
     'tshirt' : ['tee', 'tshirt', 'T-shirt',' t shirt', 'teeshirt'],
     'footwear' : ['shoes', 'sandal', 'sandals', 'shoes', 'footwear', 'slipper','Croc', 'Sandals'],
     'jewellery' : ['jewellery'],
-    # 'jeans': ['jeans, denim, ripped, levis'],
+    'jeans': ['jeans, denim, ripped, levis'],
     'dress' : ['dress', 'dresses', 'sundress', 'sundresses'],
     'skirt': ['skirt', 'skirts', 'maxi'],
     'bag': ['bag', 'bags', 'purse', 'purses', 'wallet', 'wallets']

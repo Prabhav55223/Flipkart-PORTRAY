@@ -91,18 +91,17 @@
                 <h2>Top General Articles (Not Product Specific)</h2>
             </div>
             <div class="card-deck" style="margin-right: 10px; margin-left: 10px;">
-                {% for key, row in arts.iterrows() %}
-                <div class="modal" id="myModal">
+                <div class="modal" id="myModal1">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <!-- Modal Header -->
                             <div class="modal-header">
-                                <h4 class="modal-title">{{ row["Title"] }}</h4>
+                                <h4 class="modal-title">{{ arts["Title"][0] }}</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <!-- Modal body -->
                             <div class="modal-body">
-                                {{ row["Text"] }}
+                                {{ arts["Text"][0] }}
                             </div>
                             <!-- Modal footer -->
                             <div class="modal-footer">
@@ -112,15 +111,14 @@
                     </div>
                 </div>
                 <div class="card">
-                    <img class="card-img-top" src="{{ row['Links'][0] }}" alt="Card image cap">
+                    <img class="card-img-top" src="{{ arts['Links'][0][0] }}" alt="Card image cap">
                     <div class="card-body">
-                        <h3 class="card-title" style="font-size: medium;">{{ row["Title"] }}</h3>
-                        <h5 class="card-title" style="font-size: small; color: #3C4C6A">{{ row["Date"] }}</h5>
+                        <h3 class="card-title" style="font-size: medium;">{{ arts["Title"][0] }}</h3>
+                        <h5 class="card-title" style="font-size: small; color: #3C4C6A">{{ arts["Date"][0] }}</h5>
                         <p class="card-text" style="font-size: 12px">
-                            <strong>Score: {{ row["Scores"] }}</strong> <br>
-                            <!-- Price:  {{ row["Price"] }} <br> -->
+                            <strong>Score: {{ arts["Scores"][0] }}</strong> <br>
                         </p>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal1">
                             Read More
                         </button>
                     </div>
@@ -128,7 +126,147 @@
                         <a href=""><small class="text-muted">{{ details }}</small></a>
                     </div>
                 </div>
-                {% endfor %}
+                <div class="modal" id="myModal2">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">{{ arts["Title"][1] }}</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                {{ arts["Text"][1] }}
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="{{ arts['Links'][1][0] }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h3 class="card-title" style="font-size: medium;">{{ arts["Title"][1] }}</h3>
+                        <h5 class="card-title" style="font-size: small; color: #3C4C6A">{{ arts["Date"][1] }}</h5>
+                        <p class="card-text" style="font-size: 12px">
+                            <strong>Score: {{ arts["Scores"][1] }}</strong> <br>
+                        </p>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+                            Read More
+                        </button>
+                    </div>
+                    <div class="card-footer">
+                        <a href=""><small class="text-muted">{{ details }}</small></a>
+                    </div>
+                </div>
+                <div class="modal" id="myModal3">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">{{ arts["Title"][2] }}</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                {{ arts["Text"][2] }}
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="{{ arts['Links'][2][0] }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h3 class="card-title" style="font-size: medium;">{{ arts["Title"][2] }}</h3>
+                        <h5 class="card-title" style="font-size: small; color: #3C4C6A">{{ arts["Date"][2] }}</h5>
+                        <p class="card-text" style="font-size: 12px">
+                            <strong>Score: {{ arts["Scores"][2] }}</strong> <br>
+                        </p>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal3">
+                            Read More
+                        </button>
+                    </div>
+                    <div class="card-footer">
+                        <a href=""><small class="text-muted">{{ details }}</small></a>
+                    </div>
+                </div>
+                <div class="modal" id="myModal4">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">{{ arts["Title"][3] }}</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                {{ arts["Text"][3] }}
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="{{ arts['Links'][3][0] }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h3 class="card-title" style="font-size: medium;">{{ arts["Title"][3] }}</h3>
+                        <h5 class="card-title" style="font-size: small; color: #3C4C6A">{{ arts["Date"][3] }}</h5>
+                        <p class="card-text" style="font-size: 12px">
+                            <strong>Score: {{ arts["Scores"][3] }}</strong> <br>
+                        </p>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal4">
+                            Read More
+                        </button>
+                    </div>
+                    <div class="card-footer">
+                        <a href=""><small class="text-muted">{{ details }}</small></a>
+                    </div>
+                </div>
+                <div class="modal" id="myModal5">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">{{ arts["Title"][4] }}</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                {{ arts["Text"][4] }}
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="{{ arts['Links'][4][0] }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h3 class="card-title" style="font-size: medium;">{{ arts["Title"][4] }}</h3>
+                        <h5 class="card-title" style="font-size: small; color: #3C4C6A">{{ arts["Date"][4] }}</h5>
+                        <p class="card-text" style="font-size: 12px">
+                            <strong>Score: {{ arts["Scores"][4] }}</strong> <br>
+                        </p>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal5">
+                            Read More
+                        </button>
+                    </div>
+                    <div class="card-footer">
+                        <a href=""><small class="text-muted">{{ details }}</small></a>
+                    </div>
+                </div>
+            </div>
             </div>
         </section><!-- End Portfolio Details Section -->
     </main><!-- End #main -->

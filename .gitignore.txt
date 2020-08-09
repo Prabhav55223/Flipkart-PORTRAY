@@ -1,1 +1,2 @@
-chromedriver.exe
+ipynb_checkpoints/
+__pycache__/
